@@ -4,6 +4,7 @@ import { useRoutes, Navigate, useNavigate } from 'react-router-dom';
 
 import type { RouteObject } from 'react-router-dom';
 
+const Layout = lazy(() => import('../page/Layout'));
 const Home = lazy(() => import('../page/Home'));
 const Login = lazy(() => import('../page/User/Login'));
 const NotFount = lazy(() => import('../page/404'));
@@ -14,12 +15,18 @@ const route: RouteObject[] = [
     element: <Login />
   },
   {
-    path: '/home',
-    element: <Home />
+    path: '/',
+    element: <Navigate to={'/home'} />,
   },
   {
     path: '/',
-    element: <Navigate to={'/home'} />
+    element: <Layout />,
+    children: [
+      {
+        path: '/home',
+        element: <Home />
+      },
+    ]
   },
   {
     path: '*', // 找不到
