@@ -2,6 +2,7 @@ import axios from "axios";
 import { message } from 'antd';
 
 import { BASE_URL, TIMEOUT } from './config';
+import history from '../utils/history';
 
 import type { AxiosRequestConfig } from 'axios';
 
@@ -32,13 +33,15 @@ export default function request<T = any>(options: AxiosRequestConfig): Promise<T
       return response.data
     }, (error) => {
       if (error.response.status === 401) {
-        message.info('未授权的访问请登录')
+        message.error(error.response.data.msg)
+        history.push('/user/login');
       } else if (error.response.status === 404) {
-        message.info('没有这个')
+        message.error(error.response.data.msg)
       } else if (error.response.status === 400) {
-        message.info('请求错误')
+        message.error(error.response.data.msg)
+        history.push('/home');
       } else if (error.response.status >= 500) {
-        message.info('网络异常请稍后重试')
+        message.error('服务器异常啦')
       } else {
         message.info('其他错误')
       }
@@ -52,3 +55,11 @@ export default function request<T = any>(options: AxiosRequestConfig): Promise<T
     }
   })
 }
+
+export const apiPost = (url: string, data: Record<string, any>) => {
+  return request({
+    method: 'POST',
+    url,
+    data
+  });
+};

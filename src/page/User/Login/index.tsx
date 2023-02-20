@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
   LockOutlined,
   UserOutlined,
@@ -7,13 +6,17 @@ import {
   LoginFormPage,
   ProFormText,
 } from '@ant-design/pro-components';
-import { Button, Tabs } from 'antd';
+import { Button, Tabs, message } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
+import { login } from '../../../services';
 import logo from '../../../access/imgs/old_person.png';
 import loginbgc from '../../../access/imgs/loginbgc.jpg';
 import './index.css';
 
 export default () => {
+  const navigate = useNavigate();
+
   return (
     <div style={{ backgroundColor: 'white', height: 'calc(100vh)' }}>
       <LoginFormPage
@@ -45,8 +48,14 @@ export default () => {
           ),
         }}
         onFinish={async (params) => {
-          console.log(params);
-
+          try {
+            const res = await login(params as { username: string, password: string });
+            localStorage.setItem('old_person_home_token', res.token);
+            message.success(res.msg);
+            navigate('/home');
+          } catch (error) {
+            // console.log(error);
+          }
         }}
       >
         <Tabs

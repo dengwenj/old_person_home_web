@@ -1,8 +1,9 @@
 import { ConfigProvider } from 'antd';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { unstable_HistoryRouter as Router } from 'react-router-dom';
 
 import RoutesConf from './router';
 import './App.css';
+import history from './utils/history';
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
         }
       }}
     >
-      <Router>
+      <Router history={history}>
         <RoutesConf />
       </Router>
     </ConfigProvider>

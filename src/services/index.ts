@@ -1,3 +1,8 @@
-import request from "./request";
+import request, { apiPost } from "./request";
 
-export default request;
+export { login } from './user';
+
+export {
+  request,
+  apiPost
+}
