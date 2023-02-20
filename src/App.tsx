@@ -1,7 +1,8 @@
-import { ConfigProvider } from 'antd'
+import { ConfigProvider } from 'antd';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import RoutesConf from './router';
+import './App.css';
 
 function App() {
   return (
@@ -17,6 +18,6 @@ function App() {
       </Router>
     </ConfigProvider>
   );
-}
+};
 
 export default App;
