@@ -1,5 +1,6 @@
+import { useEffect } from 'react';
 import { lazy } from 'react';
-import { useRoutes, Navigate } from 'react-router-dom';
+import { useRoutes, Navigate, useNavigate } from 'react-router-dom';
 
 import type { RouteObject } from 'react-router-dom';
 
@@ -27,5 +28,13 @@ const route: RouteObject[] = [
 ];
 
 export default function RoutesConf() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('old_person_home_token');
+    if (!token) {
+      navigate('/user/login');
+    }
+  }, [])
   return useRoutes(route);
 };
