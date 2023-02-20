@@ -39,7 +39,6 @@ export default function request<T = any>(options: AxiosRequestConfig): Promise<T
         message.error(error.response.data.msg)
       } else if (error.response.status === 400) {
         message.error(error.response.data.msg)
-        history.push('/home');
       } else if (error.response.status >= 500) {
         message.error('服务器异常啦')
       } else {
