@@ -118,6 +118,21 @@ const items = [
       }
     ]
   },
+  {
+    key: '/user1',
+    icon: <VideoCameraOutlined />,
+    label: '用户管理',
+    children: [
+      {
+        key: '/user1/admin',
+        label: '账号管理'
+      },
+      {
+        key: '/user1/oldperson',
+        label: '人员管理'
+      }
+    ]
+  },
 ]
 const pathLabel: { path: string, label: string }[] = [
   {
@@ -142,7 +157,7 @@ const App: React.FC = () => {
 
 
   return (
-    <Layout>
+    <Layout style={{ height: '100%' }}>
       <Sider
         style={{
           backgroundColor: '#fff',
@@ -183,7 +198,7 @@ const App: React.FC = () => {
           }}
         />
         <Menu
-          style={{ paddingTop: 65, height: 500 }}
+          style={{ paddingTop: 65, height: '100%' }}
           theme='light'
           mode='inline'
           defaultSelectedKeys={[location.pathname]}
@@ -249,14 +264,21 @@ const App: React.FC = () => {
             </Dropdown>
           </div>
         </Header>
-        <Content style={{ margin: '0 16px' }}>
+        <Content style={{}}>
           <div style={{ padding: 24, minHeight: 360, }}>
             <Outlet />
           </div>
         </Content>
-        <Footer style={{ textAlign: 'center' }}>©2023 养老院系统设计</Footer>
-      </Layout>
-    </Layout>
+      </Layout >
+      <Footer
+        style={{
+          textAlign: 'center',
+          position: 'absolute',
+          bottom: 0,
+          width: '100%',
+          backgroundColor: '#fff'
+        }}>©2023 养老院系统设计</Footer>
+    </Layout >
   );
 };
 
