@@ -51,6 +51,7 @@ export default () => {
           try {
             const res = await login(params as { username: string, password: string });
             localStorage.setItem('old_person_home_token', res.token);
+            localStorage.setItem('o_p_h_user_info', JSON.stringify(res.data));
             message.success(res.msg);
             navigate('/home');
           } catch (error) {

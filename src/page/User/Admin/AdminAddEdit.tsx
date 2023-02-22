@@ -1,8 +1,15 @@
+import {
+  ModalForm,
+  ProForm,
+  ProFormSelect,
+  ProFormText
+} from '@ant-design/pro-components';
+import { message } from 'antd';
+
 import { addAdmin, editAdmin } from '../../../services/user';
 
 import type { StateBool } from '../../../global/types';
-import { ModalForm, ProForm, ProFormSelect, ProFormText } from '@ant-design/pro-components';
-import { message } from 'antd';
+
 
 interface IAdminAddEditProps {
   openAdminAddEdit: boolean

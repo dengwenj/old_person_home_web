@@ -124,6 +124,7 @@ const MyLayout: React.FC = () => {
                     onClick() {
                       navigate('/user/login');
                       localStorage.removeItem('old_person_home_token');
+                      localStorage.removeItem('o_p_h_user_info');
                       message.info('登出成功');
                     }
                   },
@@ -136,7 +137,11 @@ const MyLayout: React.FC = () => {
                   size='default'
                   icon={<UserOutlined />}
                 />
-                <span style={{ marginLeft: 10 }}>admin</span>
+                <span style={{ marginLeft: 10 }}>
+                  {
+                    JSON.parse(localStorage.getItem('o_p_h_user_info') || '')?.username
+                  }
+                </span>
               </div>
             </Dropdown>
           </div>
