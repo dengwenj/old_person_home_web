@@ -7,7 +7,7 @@ export const login = (data: {username: string, password: string}) => {
 
 // 管理员(增删改查)
 export const addAdmin = (data: Record<string, any>) => {
-  return apiPost('/user/add', data);
+  return apiPost('/user/register', data);
 };
 export const deleteAdmin = (id: number) => {
   return apiPost('/user/delete', { id });

@@ -42,7 +42,7 @@ export default function request<T = any>(options: AxiosRequestConfig): Promise<T
       } else if (error.response.status >= 500) {
         message.error('服务器异常啦')
       } else {
-        message.info('其他错误')
+        message.error(error.response.data.msg)
       }
     })
 

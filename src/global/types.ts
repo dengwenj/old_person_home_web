@@ -1,0 +1,1 @@
+export type StateBool = React.Dispatch<React.SetStateAction<boolean>>;
