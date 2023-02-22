@@ -6,7 +6,7 @@ import {
   UserOutlined,
   LogoutOutlined
 } from '@ant-design/icons';
-import { Avatar, Dropdown, Breadcrumb, Layout, Menu } from 'antd';
+import { Avatar, Dropdown, Breadcrumb, Layout, Menu, message } from 'antd';
 
 import items, { pathLabel } from './route';
 import logo from '../../access/imgs/logo.png';
@@ -106,11 +106,7 @@ const MyLayout: React.FC = () => {
             <Breadcrumb>
               {
                 keyPath.reverse().map((item) => {
-                  console.log(item, 'item');
-
                   const res = pathLabel.find((itex) => item === itex.path);
-                  console.log(res, 'res');
-
                   return (
                     <Breadcrumb.Item key={item}>{res?.label}</Breadcrumb.Item>
                   )
@@ -125,6 +121,11 @@ const MyLayout: React.FC = () => {
                     key: 'logout',
                     icon: <LogoutOutlined />,
                     label: '退出登录',
+                    onClick() {
+                      navigate('/user/login');
+                      localStorage.removeItem('old_person_home_token');
+                      message.info('登出成功');
+                    }
                   },
                 ],
               }}
