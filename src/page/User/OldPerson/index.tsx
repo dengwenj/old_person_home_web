@@ -9,7 +9,6 @@ import { deleteOldPerson, pageOldPerson } from '../../../services/user';
 
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 
-
 export default function OldPerson() {
   const [isShowOldPersonAddEdit, setIsShowOldPersonAddEdit] = useState(false);
   const [openOldPersonAddEdit, setOpenOldPersonAddEdit] = useState(false);
@@ -28,9 +27,11 @@ export default function OldPerson() {
     {
       title: '姓名',
       dataIndex: 'oldPersonName',
+      width: 100,
+      fixed: 'left',
       render(oldPersonName) {
         return (
-          <Tag color='blue'>{oldPersonName}</Tag>
+          <Tag color='processing'>{oldPersonName}</Tag>
         )
       }
     },
@@ -43,17 +44,20 @@ export default function OldPerson() {
     {
       title: '出生日期',
       dataIndex: 'birthDate',
-      // render(_, record) {
-      //   return (
-      //     <>
-      //       {
-      //         <Tag color='blue'>
-      //           {moment(Number(record.birthDate)).format('YYYY-MM-DD')}
-      //         </Tag>
-      //       }
-      //     </>
-      //   )
-      // }
+      hideInSearch: true,
+      render(_, record) {
+        return (
+          <>
+            {
+              <Tag color='blue'>
+                {
+                  record.birthDate
+                }
+              </Tag>
+            }
+          </>
+        )
+      }
     },
     {
       title: '性别',

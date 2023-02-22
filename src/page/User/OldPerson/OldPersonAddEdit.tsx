@@ -1,4 +1,11 @@
-import { ModalForm, ProForm, ProFormDatePicker, ProFormSelect, ProFormText, ProFormTextArea } from '@ant-design/pro-components';
+import {
+  ModalForm,
+  ProForm,
+  ProFormDatePicker,
+  ProFormSelect,
+  ProFormText,
+  ProFormTextArea
+} from '@ant-design/pro-components';
 import { message } from 'antd';
 
 import { addOldPerson, editOldPerson } from '../../../services/user';
