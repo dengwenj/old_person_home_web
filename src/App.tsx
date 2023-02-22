@@ -17,7 +17,7 @@ function App() {
       }}
     >
       <Router history={history}>
-        <Suspense fallback={<div>正在加载中...</div>}>
+        <Suspense fallback={<PageLoading />}>
           {/* 映射路由 是写的组件 这里也相当于占个位，然后匹配到路径就在这里展示。 一级路由*/}
           <RoutesConf />
         </Suspense>

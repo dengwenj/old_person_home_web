@@ -1,159 +1,24 @@
-// import { useState } from 'react';
-// import { Outlet, useNavigate } from 'react-router-dom';
-// import { UserOutlined, LogoutOutlined } from '@ant-design/icons';
-// import { PageContainer, ProLayout } from '@ant-design/pro-components';
-// import { Avatar, Dropdown } from 'antd';
-
-// import route from './route';
-
-// import logo from '../../access/imgs/logo.png'
-
-// export default () => {
-//   const navigate = useNavigate();
-//   const [path, setPath] = useState('/user/oldperson');
-
-//   return (
-//     <div
-//       id="test-pro-layout"
-//       style={{
-//         height: '100vh',
-//       }}
-//     >
-//       <ProLayout
-//         menuProps={{
-//           items: [{ key: '/home', title: '工作' }],
-//           onClick(info) {
-//             setPath(info.key)
-//             navigate(info.key)
-//           }
-//         }}
-//         location={{
-//           pathname: path
-//         }}
-//         layout='mix'
-//         title="养老院系统设计"
-//         logo={logo}
-//         headerContentRender={() => {
-//           return (
-//             <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-//               <Dropdown
-//                 menu={{
-//                   items: [
-//                     {
-//                       key: 'logout',
-//                       icon: <LogoutOutlined />,
-//                       label: '退出登录',
-//                     },
-//                   ],
-//                 }}
-//               >
-//                 <div style={{ cursor: 'pointer' }}>
-//                   <Avatar
-//                     src='https://joesch.moe/api/v1/random'
-//                     size='default'
-//                     icon={<UserOutlined />}
-//                   />
-//                   <span style={{ marginLeft: 10 }}>admin</span>
-//                 </div>
-//               </Dropdown>
-//             </div>
-//           )
-//         }}
-//         menuFooterRender={(props) => {
-//           return (
-//             <div
-//               style={{
-//                 textAlign: 'center',
-//                 paddingBlockStart: 12,
-//               }}
-//             >
-//               <div>© 2023 养老社区设计</div>
-//             </div>
-//           );
-//         }}
-//       >
-//         <PageContainer>
-//           <Outlet />
-//         </PageContainer>
-//       </ProLayout>
-//     </div>
-//   );
-// };
 import React, { useState } from 'react';
 import { useNavigate, Outlet, useLocation } from 'react-router-dom';
 import {
   RightOutlined,
   LeftOutlined,
   UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
   LogoutOutlined
 } from '@ant-design/icons';
-import { Avatar, Dropdown } from 'antd';
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import { Avatar, Dropdown, Breadcrumb, Layout, Menu } from 'antd';
 
-import logo from '../../access/imgs/logo.png'
-import './index.css'
+import items, { pathLabel } from './route';
+import logo from '../../access/imgs/logo.png';
+import './index.css';
 
 const { Header, Content, Footer, Sider } = Layout;
 
-const items = [
-  {
-    key: '/home',
-    icon: <UserOutlined />,
-    label: '工作台',
-  },
-  {
-    key: '/user',
-    icon: <VideoCameraOutlined />,
-    label: '用户管理',
-    children: [
-      {
-        key: '/user/admin',
-        label: '账号管理'
-      },
-      {
-        key: '/user/oldperson',
-        label: '人员管理'
-      }
-    ]
-  },
-  {
-    key: '/user1',
-    icon: <VideoCameraOutlined />,
-    label: '用户管理',
-    children: [
-      {
-        key: '/user1/admin',
-        label: '账号管理'
-      },
-      {
-        key: '/user1/oldperson',
-        label: '人员管理'
-      }
-    ]
-  },
-]
-const pathLabel: { path: string, label: string }[] = [
-  {
-    path: '/home',
-    label: '工作台'
-  },
-  {
-    path: '/user',
-    label: '用户管理'
-  },
-  {
-    path: '/user/oldperson',
-    label: '人员管理'
-  }
-]
-
-const App: React.FC = () => {
+const MyLayout: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const [keyPath, setKeyPath] = useState<string[]>([location.pathname]);
+  const [keyPath, setKeyPath] = useState<string[]>([location.pathname, `/${location.pathname.split('/')[1]}`]);
 
 
   return (
@@ -202,16 +67,24 @@ const App: React.FC = () => {
           theme='light'
           mode='inline'
           defaultSelectedKeys={[location.pathname]}
+          defaultOpenKeys={[`/${location.pathname.split('/')[1]}`]}
           items={items}
           onClick={(info) => {
             setKeyPath(info.keyPath);
             navigate(info.key);
-          }}
-          onSelect={(a) => {
-            console.log(a);
-
+            const label = pathLabel.find((item) => item.path === info.key)?.label;
+            document.title = `${label || ''} - 养老院系统`;
           }}
         />
+        <Footer
+          style={{
+            textAlign: 'center',
+            position: 'absolute',
+            padding: '20px 0',
+            bottom: 0,
+            width: '100%',
+            backgroundColor: '#fff',
+          }}>©2023 养老院系统设计</Footer>
       </Sider>
       <Layout>
         <Header
@@ -232,8 +105,11 @@ const App: React.FC = () => {
           >
             <Breadcrumb>
               {
-                keyPath.map((item) => {
+                keyPath.reverse().map((item) => {
+                  console.log(item, 'item');
+
                   const res = pathLabel.find((itex) => item === itex.path);
+                  console.log(res, 'res');
 
                   return (
                     <Breadcrumb.Item key={item}>{res?.label}</Breadcrumb.Item>
@@ -270,16 +146,8 @@ const App: React.FC = () => {
           </div>
         </Content>
       </Layout >
-      <Footer
-        style={{
-          textAlign: 'center',
-          position: 'absolute',
-          bottom: 0,
-          width: '100%',
-          backgroundColor: '#fff'
-        }}>©2023 养老院系统设计</Footer>
     </Layout >
   );
 };
 
-export default App;
+export default MyLayout;

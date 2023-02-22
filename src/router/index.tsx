@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import { lazy } from 'react';
+import { useEffect, lazy } from 'react';
 import { useRoutes, Navigate, useNavigate } from 'react-router-dom';
 
 import type { RouteObject } from 'react-router-dom';
@@ -10,6 +9,20 @@ const Login = lazy(() => import('../page/User/Login'));
 const NotFount = lazy(() => import('../page/404'));
 const OldPerson = lazy(() => import('../page/User/OldPerson'));
 const User = lazy(() => import('../page/User/index'));
+const Admin = lazy(() => import('../page/User/Admin'));
+const Healthy = lazy(() => import('../page/Healthy'));
+const HealthyFile = lazy(() => import('../page/Healthy/HealthyFile'));
+const CasesFile = lazy(() => import('../page/Healthy/CasesFile'));
+const Lift = lazy(() => import('../page/Life'));
+const Workrest = lazy(() => import('../page/Life/Workrest'));
+const GoOut = lazy(() => import('../page/Life/GoOut'));
+const Checkin = lazy(() => import('../page/CheckIn'));
+const CheckinReg = lazy(() => import('../page/CheckIn/CheckinReg'));
+const BedRoom = lazy(() => import('../page/CheckIn/BedRoom'));
+const Safety = lazy(() => import('../page/Safety'));
+const Accident = lazy(() => import('../page/Safety/Accident'));
+const Visitors = lazy(() => import('../page/Safety/Visitors'));
+const Careworker = lazy(() => import('../page/Careworker'));
 
 const route: RouteObject[] = [
   {
@@ -33,10 +46,74 @@ const route: RouteObject[] = [
         element: <User />,
         children: [
           {
+            path: 'admin',
+            element: <Admin />
+          },
+          {
             path: 'oldperson',
             element: <OldPerson />
           }
         ]
+      },
+      {
+        path: '/healthy',
+        element: <Healthy />,
+        children: [
+          {
+            path: '/healthy/file',
+            element: <HealthyFile />,
+          },
+          {
+            path: '/healthy/cases',
+            element: <CasesFile />,
+          }
+        ]
+      },
+      {
+        path: '/life',
+        element: <Lift />,
+        children: [
+          {
+            path: '/life/workrest',
+            element: <Workrest />,
+          },
+          {
+            path: '/life/goout',
+            element: <GoOut />,
+          }
+        ]
+      },
+      {
+        path: '/checkin',
+        element: <Checkin />,
+        children: [
+          {
+            path: '/checkin/register',
+            element: <CheckinReg />,
+          },
+          {
+            path: '/checkin/bedroom',
+            element: <BedRoom />,
+          }
+        ]
+      },
+      {
+        path: '/safety',
+        element: <Safety />,
+        children: [
+          {
+            path: '/safety/accident',
+            element: <Accident />,
+          },
+          {
+            path: '/safety/visitors',
+            element: <Visitors />,
+          }
+        ]
+      },
+      {
+        path: '/careworker',
+        element: <Careworker />,
       },
     ]
   },
