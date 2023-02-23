@@ -176,21 +176,20 @@ export default function OldPerson() {
       render(_, record) {
         return (
           <Space>
-            <Button
-              type='link'
+            <a
               onClick={() => handleAddEdit(true, record)}
             >
               编辑
-            </Button>
+            </a>
             <Popconfirm
               title="确定删除吗？"
               onConfirm={() => handleDelete(record.id)}
               okText="确定"
               cancelText="取消"
             >
-              <Button type='link' danger>
+              <a>
                 删除
-              </Button>
+              </a>
             </Popconfirm>
 
           </Space>
