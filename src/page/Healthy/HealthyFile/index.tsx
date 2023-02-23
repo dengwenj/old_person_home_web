@@ -7,6 +7,7 @@ import { Button, message, Popconfirm, Space, Tag } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 
 import HealthyFileAddEdit from './HealthyFileAddEdit';
+import { getOldpersonByName } from '../../../services/user';
 import { pageHealthy, deleteHealthy } from '../../../services/healthy';
 
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
@@ -35,6 +36,24 @@ export default function HealthyFile() {
         return (
           <Tag color='processing'>{oldPersonName}</Tag>
         )
+      },
+      valueType: 'select',
+      debounceTime: 300,
+      async request({ keyWords }) {
+        if (!keyWords) return [];
+        const res = await getOldpersonByName(keyWords);
+        return res.data.map((item: any) => {
+          return {
+            value: item.id,
+            label: item.oldPersonName
+          }
+        })
+      },
+      fieldProps(form, config) {
+        return {
+          showSearch: true,
+          placeholder: '请搜索选择'
+        }
       }
     },
     {
@@ -185,11 +204,13 @@ export default function HealthyFile() {
           text: '不过敏',
           status: 'Success'
         }
-      }
+      },
+      hideInSearch: true
     },
     {
       title: '是否吸烟',
       dataIndex: 'isSmoke',
+      hideInSearch: true,
       valueEnum: {
         0: {
           text: '不吸烟',
@@ -277,6 +298,8 @@ export default function HealthyFile() {
         columns={columns}
         actionRef={actionRef}
         request={async (params) => {
+          params.oldPersonId = params.oldPersonName;
+
           const res = await pageHealthy(params);
           return {
             data: res.data,
