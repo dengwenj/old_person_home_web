@@ -122,6 +122,7 @@ export default function HealthyFile() {
       title: '血型',
       width: 80,
       dataIndex: 'bloodType',
+      hideInSearch: true,
       async request() {
         return [
           {
