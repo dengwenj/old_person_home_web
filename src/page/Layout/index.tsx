@@ -4,14 +4,12 @@ import { PageContainer, ProLayout } from '@ant-design/pro-components';
 import { Outlet } from 'react-router-dom';
 import {
   LogoutOutlined,
-  InfoCircleFilled,
-  QuestionCircleFilled,
-  GithubFilled,
 } from '@ant-design/icons';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import route from './route';
 import logo from '../../access/imgs/logo.png';
+import cs from '../../access/imgs/cs.png';
 
 export default () => {
   const location = useLocation;
@@ -31,7 +29,7 @@ export default () => {
         headerContentRender={() => {
           return (
             <div style={{ marginLeft: 20 }}>
-              <Tag color='#00b96b'>海纳百川，有容乃大</Tag>
+              <span style={{ color: '#575757' }}>「社区养老院系统是合阳大道最具影响力的设计系统」</span>
             </div>
           )
         }}
@@ -46,8 +44,8 @@ export default () => {
           pathname,
         }}
         avatarProps={{
-          src: 'https://joesch.moe/api/v1/random',
-          title: JSON.parse(localStorage.getItem('o_p_h_user_info') || '')?.username,
+          src: cs,
+          title: `您好 ${JSON.parse(localStorage.getItem('o_p_h_user_info') || '')?.username}`,
           size: 'small',
           render: (props, dom) => {
             return (
@@ -73,14 +71,12 @@ export default () => {
             );
           },
         }}
-        title="养老院系统设计"
+        title="社区养老院设计"
         logo={logo}
         actionsRender={(props) => {
           if (props.isMobile) return [];
           return [
-            <InfoCircleFilled key="InfoCircleFilled" />,
-            <QuestionCircleFilled key="QuestionCircleFilled" />,
-            <GithubFilled key="GithubFilled" />,
+            <Tag style={{ fontSize: 12, padding: '0 3px' }}>海纳百川，有容乃大</Tag>
           ];
         }}
         menuFooterRender={(props) => {
@@ -91,7 +87,7 @@ export default () => {
                 paddingBlockStart: 12,
               }}
             >
-              <div>© 2023 养老社区设计</div>
+              <div>© 2023 社区养老院设计</div>
             </div>
           );
         }}
