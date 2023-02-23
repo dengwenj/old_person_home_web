@@ -18,3 +18,7 @@ img {
   border: none;
   vertical-align: middle;
 }
+
+.ant-pro-page-container-children-content {
+  padding-inline: 20px;
+}
