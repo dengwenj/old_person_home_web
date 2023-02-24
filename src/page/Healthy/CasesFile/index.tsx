@@ -226,7 +226,7 @@ export default function CasesFile() {
           // defaultCollapsed: false
         }}
         rowKey="id"
-        headerTitle="人员管理"
+        headerTitle="病历档案"
         toolBarRender={() => [
           <Button
             icon={<PlusOutlined />}

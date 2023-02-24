@@ -32,6 +32,21 @@ export default {
       ]
     },
     {
+      path: '/checkin',
+      icon: <HomeOutlined />,
+      name: '入住管理',
+      children: [
+        {
+          path: '/checkin/register',
+          name: '入住登记'
+        },
+        {
+          path: '/checkin/bedroom',
+          name: '寝室管理'
+        }
+      ]
+    },
+    {
       path: '/healthy',
       icon: <FieldTimeOutlined />,
       name: '健康管理',
@@ -58,21 +73,6 @@ export default {
         {
           path: '/life/goout',
           name: '外出报备'
-        }
-      ]
-    },
-    {
-      path: '/checkin',
-      icon: <HomeOutlined />,
-      name: '入住管理',
-      children: [
-        {
-          path: '/checkin/register',
-          name: '入住登记'
-        },
-        {
-          path: '/checkin/bedroom',
-          name: '寝室管理'
         }
       ]
     },

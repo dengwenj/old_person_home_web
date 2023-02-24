@@ -311,11 +311,8 @@ export default function HealthyFile() {
         scroll={{
           x: 2200
         }}
-        search={{
-          // defaultCollapsed: false
-        }}
         rowKey="id"
-        headerTitle="人员管理"
+        headerTitle="健康档案"
         toolBarRender={() => [
           <Button
             icon={<PlusOutlined />}
