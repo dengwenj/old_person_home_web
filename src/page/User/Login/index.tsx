@@ -23,7 +23,7 @@ export default () => {
         backgroundImageUrl={loginbgc}
         logo={logo}
         title="社区养老院"
-        subTitle="社区养老院系统是合阳大道最具影响力的设计规范"
+        subTitle="社区养老院系统是合阳大道最具影响力的设计系统"
         activityConfig={{
           style: {
             boxShadow: '0px 0px 8px rgba(0, 0, 0, 0.2)',

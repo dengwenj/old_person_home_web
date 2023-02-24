@@ -102,7 +102,7 @@ export default function CasesFile() {
         return (
           <>
             {
-              <Tag color='blue'>
+              <Tag>
                 {
                   record.fallIllTime
                 }
