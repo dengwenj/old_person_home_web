@@ -62,6 +62,7 @@ export default function GoOut() {
     {
       title: '性别',
       dataIndex: 'gender',
+      hideInSearch: true,
       valueEnum: {
         1: {
           text: '男',
@@ -88,7 +89,6 @@ export default function GoOut() {
     {
       title: '外出事件',
       dataIndex: 'goOutEvent',
-      hideInSearch: true
     },
     {
       title: '外出时间',
