@@ -12,6 +12,8 @@ import summer from '../../../access/imgs/summer.jpg';
 import autumn from '../../../access/imgs/autumn.jpg';
 import winter from '../../../access/imgs/winter.jpeg';
 
+import type { CSSProperties } from 'react';
+
 const map: Record<string, any> = {
   1: '春季',
   2: '夏季',
@@ -23,6 +25,10 @@ const img: Record<string, any> = {
   2: summer,
   3: autumn,
   4: winter
+}
+
+const style: CSSProperties = {
+  marginRight: 5
 }
 
 export default () => {
@@ -124,24 +130,24 @@ export default () => {
               return (
                 <div>
                   <div style={{ marginBottom: 5 }}>上午</div>
-                  <div style={{ marginBottom: 4 }}>
-                    <span>7-8点：<Tag>{record.sevenEight}</Tag></span>
-                    <span>8-9点：<Tag>{record.eightNine}</Tag></span>
-                    <span>9-10点：<Tag>{record.nineTen}</Tag></span>
+                  <div style={{ marginBottom: 5 }}>
+                    <span style={style}>7-8点：<Tag>{record.sevenEight}</Tag></span>
+                    <span style={style}>8-9点：<Tag>{record.eightNine}</Tag></span>
+                    <span style={style}>9-10点：<Tag>{record.nineTen}</Tag></span>
                   </div>
                   <div style={{ marginBottom: 10 }}>
-                    <span>10-11点：<Tag>{record.tenEleven}</Tag></span>
-                    <span>11-12点：<Tag>{record.elevenTwelve}</Tag></span>
+                    <span style={style}>10-11点：<Tag>{record.tenEleven}</Tag></span>
+                    <span style={style}>11-12点：<Tag>{record.elevenTwelve}</Tag></span>
                   </div>
                   <div style={{ marginBottom: 5 }}>下午</div>
-                  <div style={{ marginBottom: 4 }}>
-                    <span>12-14点：<Tag>{record.twelveFourteen}</Tag></span>
-                    <span>14-17点：<Tag>{record.fourteenSeventeen}</Tag></span>
+                  <div style={{ marginBottom: 5 }}>
+                    <span style={style}>12-14点：<Tag>{record.twelveFourteen}</Tag></span>
+                    <span style={style}>14-17点：<Tag>{record.fourteenSeventeen}</Tag></span>
                   </div>
                   <div>
-                    <span>17-19点：<Tag>{record.seventeenNineteen}</Tag></span>
-                    <span>19-21点：<Tag>{record.nineteenTwentyone}</Tag></span>
-                    <span>21点后：<Tag>{record.twentyoneAfter}</Tag></span>
+                    <span style={style}>17-19点：<Tag>{record.seventeenNineteen}</Tag></span>
+                    <span style={style}>19-21点：<Tag>{record.nineteenTwentyone}</Tag></span>
+                    <span style={style}>21点后：<Tag>{record.twentyoneAfter}</Tag></span>
                   </div>
                 </div>
               );
