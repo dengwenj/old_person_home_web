@@ -148,7 +148,7 @@ export default function CasesFile() {
               record.drugPrice ? (
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                   <span>￥</span>
-                  <span style={{ color: '#ec5b56', fontSize: 20 }}>{record.drugPrice}</span>
+                  <span style={{ color: '#ec5b56', fontSize: 16 }}>{record.drugPrice}</span>
                 </div>
               ) : '-'
             }
@@ -191,7 +191,7 @@ export default function CasesFile() {
    */
   const handleAddEdit = (isEdit: boolean, record: Record<string, any>) => {
     setIsEdit(isEdit);
-    setRecord(record);
+    setRecord({ ...record });
     setIsShowCasesFileAddEdit(true);
     setOpenCasesFileAddEdit(true);
   }

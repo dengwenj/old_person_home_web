@@ -43,13 +43,17 @@ export default function CasesFileAddEdit({
         destroyOnClose: true,
         onCancel: () => {
           setOpenCasesFileAddEdit(false);
-          setIsTreat('0');
         },
       }}
       onFinish={async (values) => {
         values.oldPersonId = values.oldPersonName.value;
         delete values.oldPersonName
 
+        if (isTreat === '0') {
+          values.treatDrug = '';
+          values.treatHospital = '';
+          values.drugPrice = '';
+        }
         if (isEdit) {
           try {
             const res = await editCases({ id: record.id, ...values });
@@ -159,7 +163,6 @@ export default function CasesFileAddEdit({
           </ProForm.Group>
         )
       }
-
     </ModalForm>
   )
 }
