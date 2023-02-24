@@ -37,7 +37,7 @@ export default function CasesFileAddEdit({
   return (
     <ModalForm
       initialValues={record}
-      title={`${isEdit ? '编辑' : '新增'}健康档案`}
+      title={`${isEdit ? '编辑' : '新增'}病历`}
       open={openCasesFileAddEdit}
       modalProps={{
         destroyOnClose: true,

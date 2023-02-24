@@ -31,7 +31,7 @@ export default function GoOutAddEdit({
   return (
     <ModalForm
       initialValues={record}
-      title={`${isEdit ? '编辑' : '新增'}健康档案`}
+      title={`${isEdit ? '编辑' : '新增'}外出`}
       open={openGoOutAddEdit}
       modalProps={{
         destroyOnClose: true,
