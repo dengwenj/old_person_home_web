@@ -86,7 +86,7 @@ export default function BedRoom() {
               record.price ? (
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                   <span>￥</span>
-                  <span style={{ color: '#ec5b56' }}>{record.price}</span>
+                  <span style={{ color: '#ec5b56', fontSize: 16 }}>{record.price}</span>
                 </div>
               ) : '-'
             }
