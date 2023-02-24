@@ -69,10 +69,12 @@ export default function Careworker() {
     {
       title: '不健康病历',
       dataIndex: 'careWorkerCases',
+      hideInSearch: true,
     },
     {
       title: '护工费用',
       dataIndex: 'carWorkerPrice',
+      hideInSearch: true,
       render(_, record) {
         return (
           <>
@@ -153,6 +155,9 @@ export default function Careworker() {
             total: res.total,
             success: true
           }
+        }}
+        search={{
+          defaultCollapsed: false
         }}
         rowKey="id"
         headerTitle="护工管理"
