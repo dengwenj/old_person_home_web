@@ -58,7 +58,7 @@ export default function BedRoom() {
       render(text) {
         return (
           <>
-            {text} 人
+            <Tag color='cyan'>{text}人</Tag>
           </>
         )
       }
@@ -70,7 +70,7 @@ export default function BedRoom() {
       render(text) {
         return (
           <>
-            {text} 人
+            <Tag color='green'>{text}人</Tag>
           </>
         )
       }
