@@ -8,7 +8,7 @@ import { PlusOutlined } from '@ant-design/icons';
 
 import CheckinRegAddEdit from './CheckinRegAddEdit';
 import { getOldpersonByName } from '../../../services/user';
-import { pageHealthy, deleteHealthy } from '../../../services/healthy';
+import { pageLife, deleteLife, getBedroomByNum } from '../../../services/checkIn';
 
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 
@@ -60,24 +60,11 @@ export default function CheckinReg() {
       title: '出生日期',
       dataIndex: 'birthDate',
       hideInSearch: true,
-      render(_, record) {
-        return (
-          <>
-            {
-              <Tag color='blue'>
-                {
-                  record.birthDate
-                }
-              </Tag>
-            }
-          </>
-        )
-      }
     },
     {
       title: '性别',
       dataIndex: 'gender',
-      width: 100,
+      hideInSearch: true,
       valueEnum: {
         1: {
           text: '男',
@@ -90,153 +77,70 @@ export default function CheckinReg() {
       },
     },
     {
-      title: '体检时间',
-      dataIndex: 'PETime',
+      title: '入住时间',
+      dataIndex: 'checkInTime',
       hideInSearch: true,
-    },
-    {
-      title: '身高(CM)',
-      dataIndex: 'height',
-      hideInSearch: true,
-      render(text) {
-        return (
-          <>
-            {text} CM
-          </>
-        )
-      }
-    },
-    {
-      title: '体重(KG)',
-      dataIndex: 'weight',
-      hideInSearch: true,
-      render(text) {
-        return (
-          <>
-            {text} KG
-          </>
-        )
-      }
-    },
-    {
-      title: '血型',
-      width: 80,
-      dataIndex: 'bloodType',
-      hideInSearch: true,
-      async request() {
-        return [
-          {
-            value: 'A',
-            label: 'A'
-          },
-          {
-            value: 'B',
-            label: 'B'
-          },
-          {
-            value: 'O',
-            label: 'O'
-          },
-          {
-            value: 'AB',
-            label: 'AB'
-          },
-        ]
-      },
-      render(_, record) {
-        const map: Record<string, any> = {
-          A: 'blue',
-          B: 'purple',
-          O: 'gold',
-          AB: 'green'
-        }
-        return (
-          <>
-            <Tag color={map[record.bloodType.toUpperCase()]}>{record.bloodType}</Tag>
-          </>
-        )
-      }
-    },
-    {
-      title: '心率(60~100次/分)',
-      dataIndex: 'heartRate',
-      hideInSearch: true,
-      render(text) {
-        return (
-          <>
-            {text} 次/分
-          </>
-        )
-      }
-    },
-    {
-      title: '血氧(95%-100%)',
-      dataIndex: 'bloodOxygen',
-      hideInSearch: true,
-      render(text) {
-        return (
-          <>
-            {text} %
-          </>
-        )
-      }
-    },
-    {
-      title: '血压(90-140mmHg)',
-      dataIndex: 'bloodPressure',
-      hideInSearch: true,
-      render(text) {
-        return (
-          <>
-            {text} mmHg
-          </>
-        )
-      }
-    },
-    {
-      title: '是否过敏',
-      dataIndex: 'isAllergy',
-      valueEnum: {
-        0: {
-          text: '过敏',
-          status: 'Error'
-        },
-        1: {
-          text: '不过敏',
-          status: 'Success'
-        }
-      },
-      hideInSearch: true
-    },
-    {
-      title: '是否吸烟',
-      dataIndex: 'isSmoke',
-      hideInSearch: true,
-      valueEnum: {
-        0: {
-          text: '不吸烟',
-          status: 'Success'
-        },
-        1: {
-          text: '吸烟',
-          status: 'Error'
-        }
-      }
-    },
-    {
-      title: '健康情况',
-      dataIndex: 'healthyDes',
-      hideInSearch: true,
-      width: 240,
       render(_, record) {
         return (
           <>
             {
-              record.healthyDes.split(',').map((item: string) => (
-                <span key={item}>
-                  <Tag color='blue'>{item}</Tag>
-                </span>
-              ))
+              <Tag color='blue'>
+                {
+                  record.checkInTime
+                }
+              </Tag>
+            }
+          </>
+        )
+      }
+    },
+    {
+      title: '寝室号',
+      dataIndex: 'bedroomNum',
+      render(text) {
+        return (
+          <>
+            <Tag color='blue'>
+              {text}
+            </Tag>
+          </>
+        )
+      },
+      valueType: 'select',
+      debounceTime: 300,
+      async request({ keyWords }) {
+        console.log(keyWords);
+
+        if (!keyWords) return [];
+        const res = await getBedroomByNum({ bedroomNum: keyWords, isLive: 2 });
+        return res.data.map((item: any) => {
+          return {
+            value: item.id,
+            label: item.bedroomNum
+          }
+        })
+      },
+      fieldProps(form, config) {
+        return {
+          showSearch: true,
+          placeholder: '请搜索选择'
+        }
+      }
+    },
+    {
+      title: '寝室价格',
+      dataIndex: 'price',
+      hideInSearch: true,
+      render(_, record) {
+        return (
+          <>
+            {
+              record.price ? (
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <span>￥</span>
+                  <span style={{ color: '#ec5b56' }}>{record.price}</span>
+                </div>
+              ) : '-'
             }
           </>
         )
@@ -285,7 +189,7 @@ export default function CheckinReg() {
   // 删除
   const handleDelete = async (id: number) => {
     try {
-      const res = await deleteHealthy(id);
+      const res = await deleteLife(id);
       message.success(res.msg);
       reloadPage();
     } catch (error) {
@@ -300,22 +204,20 @@ export default function CheckinReg() {
         actionRef={actionRef}
         request={async (params) => {
           params.oldPersonId = params.oldPersonName;
+          params.bedroomId = params.bedroomNum;
 
-          const res = await pageHealthy(params);
+          const res = await pageLife(params);
           return {
             data: res.data,
             total: res.total,
             success: true
           }
         }}
-        scroll={{
-          x: 2200
-        }}
         search={{
-          // defaultCollapsed: false
+          defaultCollapsed: false
         }}
         rowKey="id"
-        headerTitle="人员管理"
+        headerTitle="入住登记"
         toolBarRender={() => [
           <Button
             icon={<PlusOutlined />}

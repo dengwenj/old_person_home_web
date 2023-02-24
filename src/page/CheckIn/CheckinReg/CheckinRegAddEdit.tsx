@@ -3,12 +3,11 @@ import {
   ProForm,
   ProFormDatePicker,
   ProFormSelect,
-  ProFormText,
 } from '@ant-design/pro-components';
 import { message } from 'antd';
 
 import { getOldpersonByName } from '../../../services/user';
-import { addHealthy, editHealthy } from '../../../services/healthy';
+import { addLife, editLife, getBedroomByNum } from '../../../services/checkIn';
 
 import type { StateBool } from '../../../global/types';
 
@@ -38,34 +37,43 @@ export default function CheckinRegAddEdit({
       }}
       onFinish={async (values) => {
         values.oldPersonId = values.oldPersonName.value;
-        delete values.oldPersonName
+        values.bedroomId = values.bedroomNum.value;
+        delete values.oldPersonName;
+        delete values.bedroomNum;
 
         if (isEdit) {
           try {
-            const res = await editHealthy({ id: record.id, ...values });
-            message.success(res.msg);
-            reloadPage();
-            setOpenCheckinRegAddEdit(false);
+            const res = await editLife({ id: record.id, ...values });
+            if (res.code !== 1) {
+              message.success(res.msg);
+              reloadPage();
+              setOpenCheckinRegAddEdit(false);
+              return
+            }
+            message.error(res.msg);
           } catch (error) {
             console.log(error);
           }
         } else {
           try {
-            const res = await addHealthy(values);
-            message.success(res.msg);
-            reloadPage();
-            setOpenCheckinRegAddEdit(false);
+            const res = await addLife(values);
+            if (res.code !== 1) {
+              message.success(res.msg);
+              reloadPage();
+              setOpenCheckinRegAddEdit(false);
+              return
+            }
+            message.error(res.msg);
           } catch (error) {
             console.log(error);
           }
         }
-        return true;
       }}
     >
       <ProForm.Group>
         <ProFormSelect.SearchSelect
           mode='single'
-          width='sm'
+          width='md'
           name="oldPersonName"
           label="姓名"
           placeholder="请搜索选择姓名"
@@ -82,113 +90,32 @@ export default function CheckinRegAddEdit({
           }}
           rules={[{ message: '姓名必选', required: true }]}
         />
-      </ProForm.Group>
-      <ProForm.Group>
-        <ProFormDatePicker
-          width='sm'
-          name="PETime"
-          label="体检时间"
-          rules={[{ message: '体检时间必选', required: true }]}
-        />
-        <ProFormText
-          width="sm"
-          name="height"
-          label="身高(CM)"
-          placeholder="请输入身高"
-          rules={[{ message: '身高必填', required: true }]}
-        />
-        <ProFormText
-          width="sm"
-          name="weight"
-          label="体重(KG)"
-          placeholder="请输入体重"
-          rules={[{ message: '体重必填', required: true }]}
+        <ProFormSelect.SearchSelect
+          mode='single'
+          width='md'
+          name="bedroomNum"
+          label="寝室号"
+          placeholder="请搜索选择寝室号"
+          debounceTime={300}
+          request={async ({ keyWords }) => {
+            if (!keyWords) return []
+            const res = await getBedroomByNum({ bedroomNum: keyWords, isLive: 0 });
+            return res.data.map((item: any) => {
+              return {
+                value: item.id,
+                label: item.bedroomNum
+              }
+            })
+          }}
+          rules={[{ message: '寝室号必选', required: true }]}
         />
       </ProForm.Group>
-      <ProForm.Group>
-        <ProFormText
-          width="sm"
-          name="heartRate"
-          label="心率(60~100次/分)"
-          placeholder="请输入心率"
-          rules={[{ message: '心率必填', required: true }]}
-        />
-        <ProFormText
-          width="sm"
-          name="bloodOxygen"
-          label="血氧(95%-100%)"
-          placeholder="请输入血氧"
-          rules={[{ message: '血氧必填', required: true }]}
-        />
-        <ProFormText
-          width="sm"
-          name="bloodPressure"
-          label="血压(90-139mmHg)"
-          placeholder="请输入血压"
-          rules={[{ message: '血压必填', required: true }]}
-        />
-      </ProForm.Group>
-      <ProForm.Group>
-        <ProFormSelect
-          width="sm"
-          name="bloodType"
-          label="血型"
-          placeholder="请输入血型"
-          rules={[{ message: '血型必填', required: true }]}
-          options={[
-            {
-              value: 'A',
-              label: 'A'
-            },
-            {
-              value: 'B',
-              label: 'B'
-            },
-            {
-              value: 'O',
-              label: 'O'
-            },
-            {
-              value: 'AB',
-              label: 'AB'
-            },
-          ]}
-        />
-        <ProFormSelect
-          width="sm"
-          name="isAllergy"
-          label="是否过敏"
-          placeholder="请选择是否过敏"
-          rules={[{ message: '是否过敏必选', required: true }]}
-          options={[
-            {
-              value: 0,
-              label: '过敏'
-            },
-            {
-              value: 1,
-              label: '不过敏'
-            },
-          ]}
-        />
-        <ProFormSelect
-          width="sm"
-          name="isSmoke"
-          label="是否吸烟"
-          placeholder="请选择是否吸烟"
-          rules={[{ message: '是否吸烟必选', required: true }]}
-          options={[
-            {
-              value: 0,
-              label: '不吸烟'
-            },
-            {
-              value: 1,
-              label: '吸烟'
-            },
-          ]}
-        />
-      </ProForm.Group>
+      <ProFormDatePicker
+        width='md'
+        name="checkInTime"
+        label="入住时间"
+        rules={[{ message: '入住时间必选', required: true }]}
+      />
     </ModalForm>
   )
 }

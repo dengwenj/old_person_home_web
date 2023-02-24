@@ -38,18 +38,26 @@ export default function BedRoomAddEdit({
         if (isEdit) {
           try {
             const res = await editBedRoom({ id: record.id, ...values });
-            message.success(res.msg);
-            reloadPage();
-            setOpenBedRoomAddEdit(false);
+            if (res.code !== 1) {
+              message.success(res.msg);
+              reloadPage();
+              setOpenBedRoomAddEdit(false);
+              return
+            }
+            message.error(res.msg);
           } catch (error) {
             console.log(error);
           }
         } else {
           try {
             const res = await addBedRoom(values);
-            message.success(res.msg);
-            reloadPage();
-            setOpenBedRoomAddEdit(false);
+            if (res.code !== 1) {
+              message.success(res.msg);
+              reloadPage();
+              setOpenBedRoomAddEdit(false);
+              return
+            }
+            message.error(res.msg);
           } catch (error) {
             console.log(error);
           }
