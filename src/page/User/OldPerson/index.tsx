@@ -36,6 +36,16 @@ export default function OldPerson() {
       }
     },
     {
+      title: '年龄',
+      width: 100,
+      dataIndex: 'age',
+      render(age) {
+        return (
+          <Tag color='cyan'>{age}岁</Tag>
+        )
+      }
+    },
+    {
       title: '电话',
       dataIndex: 'phone',
       copyable: true,
@@ -61,6 +71,7 @@ export default function OldPerson() {
     },
     {
       title: '性别',
+      width: 100,
       dataIndex: 'gender',
       valueEnum: {
         1: {

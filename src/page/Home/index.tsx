@@ -69,6 +69,8 @@ export default function Home() {
   };
   return (
     <>
+
+
       <div style={{ display: 'flex' }}>
         <div style={{ width: '50%' }}>
           <div
