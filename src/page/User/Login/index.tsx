@@ -18,7 +18,7 @@ export default () => {
   const navigate = useNavigate();
 
   return (
-    <div style={{ backgroundColor: 'white', height: 'calc(100vh)' }}>
+    <div style={{ height: 'calc(100vh)' }}>
       <LoginFormPage
         backgroundImageUrl={loginbgc}
         logo={logo}

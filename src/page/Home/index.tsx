@@ -104,7 +104,7 @@ export default function Home() {
         <Descriptions.Item label="加入系统">
           今天是您加入系统的第<Tag style={{ margin: '0 2px' }} color='cyan'>{joinInDay}</Tag>天
         </Descriptions.Item>
-        <Descriptions.Item label="座右铭">「海纳百川，有容乃大」</Descriptions.Item>
+        <Descriptions.Item label="座右铭">「海阔凭鱼跃，天高任鸟飞」</Descriptions.Item>
         <Descriptions.Item label="爱好">
           {
             ['阅读📚', '滑雪🏂🏻', '摄影📷'].map((item) => {
