@@ -100,7 +100,7 @@ export default function CheckinReg() {
       render(text) {
         return (
           <>
-            <Tag color='blue'>
+            <Tag color='cyan'>
               {text}
             </Tag>
           </>

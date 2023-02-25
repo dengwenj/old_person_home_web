@@ -13,6 +13,10 @@ export const deleteLife = (id: number) => {
 export const pageLife = (data: Record<string, any>) => {
   return apiPost('/life/page', data);
 }
+// 获取12个月全部入住人员人数
+export const getAllCheckIn = () => {
+  return apiPost('/life/getAll', {});
+}
 
 // 寝室管理(增删改查)
 export const addBedRoom = (data: Record<string, any>) => {
