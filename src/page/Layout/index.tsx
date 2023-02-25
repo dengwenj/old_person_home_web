@@ -30,6 +30,10 @@ export default () => {
     name: '账号管理'
   } : {}
 
+  const time = Date.now();
+  const date = new Date(time);
+  const year = date.getFullYear();
+
   return (
     <div
       id="test-pro-layout"
@@ -187,7 +191,7 @@ export default () => {
                 paddingBlockStart: 12,
               }}
             >
-              <div>© 2023 社区养老院设计</div>
+              <div>© {year} 社区养老院设计</div>
             </div>
           );
         }}

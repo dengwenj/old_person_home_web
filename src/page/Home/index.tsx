@@ -50,7 +50,7 @@ export default function Home() {
         alias: '月份',
       },
       peopleNum: {
-        alias: '入住人员',
+        alias: '入住人数',
       },
     },
   };
@@ -128,7 +128,7 @@ export default function Home() {
               marginBottom: 10,
               color: '#262626',
               fontSize: 16
-            }}>每月入住人员</div>
+            }}>每月入住人数</div>
           <div>
             <Column {...config} />
           </div>
