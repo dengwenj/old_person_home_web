@@ -2,13 +2,18 @@ import { useEffect, useState } from 'react';
 import { Column, Pie } from '@ant-design/plots';
 
 import { getAllCheckIn } from '../../services/checkIn';
+import { getPeopleByAge } from '../../services/user';
 
 export default function Home() {
   const [checkInData, setCheckInData] = useState([]);
+  const [ageData, setAgeData] = useState([]);
 
   useEffect(() => {
     getAllCheckIn().then((res) => {
       setCheckInData(res.data)
+    })
+    getPeopleByAge().then((res) => {
+      setAgeData(res.data)
     })
   }, [])
 
@@ -42,36 +47,10 @@ export default function Home() {
     },
   };
 
-  const data = [
-    {
-      type: '60-65岁',
-      value: 27,
-    },
-    {
-      type: '66-70岁',
-      value: 25,
-    },
-    {
-      type: '71-75岁',
-      value: 18,
-    },
-    {
-      type: '76-80岁',
-      value: 15,
-    },
-    {
-      type: '81-85岁',
-      value: 10,
-    },
-    {
-      type: '其他',
-      value: 5,
-    },
-  ];
   const config2 = {
+    data: ageData,
     appendPadding: 10,
-    data,
-    angleField: 'value',
+    angleField: 'allPeople',
     colorField: 'type',
     radius: 0.75,
     label: {
@@ -110,7 +89,7 @@ export default function Home() {
               fontSize: 16
             }}
           >
-            老人年龄范围
+            老人年龄范围人数
           </div>
           <div>
             <Pie {...config2} />

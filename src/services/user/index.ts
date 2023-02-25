@@ -36,3 +36,7 @@ export const pageOldPerson = (data: Record<string, any>) => {
 export const getOldpersonByName = (oldPersonName: string) => {
   return apiPost('/oldperson/getOldpersonByName', { oldPersonName });
 };
+// 通过年龄段获取人数
+export const getPeopleByAge = () => {
+  return apiPost('/oldperson/getPeopleByAge', {});
+}
