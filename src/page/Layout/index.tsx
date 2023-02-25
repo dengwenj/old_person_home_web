@@ -6,8 +6,16 @@ import {
   LogoutOutlined,
 } from '@ant-design/icons';
 import { useNavigate, useLocation } from 'react-router-dom';
+import {
+  UserOutlined,
+  FieldTimeOutlined,
+  SmileOutlined,
+  CoffeeOutlined,
+  HomeOutlined,
+  ApiOutlined,
+  SolutionOutlined
+} from '@ant-design/icons';
 
-import route from './route';
 import logo from '../../access/imgs/logo.png';
 import cs from '../../access/imgs/cs.png';
 
@@ -15,6 +23,12 @@ export default () => {
   const location = useLocation;
   const [pathname, setPathname] = useState(location().pathname);
   const navigate = useNavigate();
+
+  const role = JSON.parse(localStorage.getItem('o_p_h_user_info') || '')?.role
+  const obj = role === 1 ? {
+    path: '/user/admin',
+    name: '账号管理'
+  } : {}
 
   return (
     <div
@@ -33,7 +47,93 @@ export default () => {
             </div>
           )
         }}
-        route={route}
+        route={{
+          path: '/',
+          children: [
+            {
+              path: '/home',
+              icon: <SmileOutlined />,
+              name: '工作台',
+            },
+            {
+              path: '/user',
+              icon: <UserOutlined />,
+              name: '用户管理',
+              children: [
+                obj,
+                {
+                  path: '/user/oldperson',
+                  name: '人员管理'
+                }
+              ]
+            },
+            {
+              path: '/checkin',
+              icon: <HomeOutlined />,
+              name: '入住管理',
+              children: [
+                {
+                  path: '/checkin/register',
+                  name: '入住登记'
+                },
+                {
+                  path: '/checkin/bedroom',
+                  name: '寝室管理'
+                }
+              ]
+            },
+            {
+              path: '/healthy',
+              icon: <FieldTimeOutlined />,
+              name: '健康管理',
+              children: [
+                {
+                  path: '/healthy/file',
+                  name: '健康档案'
+                },
+                {
+                  path: '/healthy/cases',
+                  name: '病历档案'
+                }
+              ]
+            },
+            {
+              path: '/life',
+              icon: <CoffeeOutlined />,
+              name: '生活管理',
+              children: [
+                {
+                  path: '/life/workrest',
+                  name: '作息计划'
+                },
+                {
+                  path: '/life/goout',
+                  name: '外出报备'
+                }
+              ]
+            },
+            {
+              path: '/safety',
+              icon: <ApiOutlined />,
+              name: '安全管理',
+              children: [
+                {
+                  path: '/safety/accident',
+                  name: '事故记录'
+                },
+                {
+                  path: '/safety/visitors',
+                  name: '访客记录'
+                }
+              ]
+            },
+            {
+              path: '/careworker',
+              icon: <SolutionOutlined />,
+              name: '护工管理',
+            },
+          ]
+        }}
         menuProps={{
           onClick(info) {
             setPathname(info.key)
