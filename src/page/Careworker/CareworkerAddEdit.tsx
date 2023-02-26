@@ -8,6 +8,7 @@ import {
 import { message } from 'antd';
 
 import { addCareworker, editCareworker } from '../../services/careworker';
+import { getOldpersonByName } from '../../services/user';
 
 import type { StateBool } from '../../global/types';
 import { useEffect, useState } from 'react';
@@ -28,6 +29,7 @@ export default function CareworkerAddEdit({
   reloadPage
 }: ICareworkerAddEditProps) {
   const [isHealthy, setIsHealthy] = useState(record.isHealthy);
+  const [isLook, setIsLook] = useState(record.isHealthy);
 
   useEffect(() => {
     setIsHealthy(record.isHealthy);
@@ -42,6 +44,9 @@ export default function CareworkerAddEdit({
         onCancel: () => setOpenCareworkerAddEdit(false),
       }}
       onFinish={async (values) => {
+        values.oldPersonId = values.oldPersonName.value;
+        delete values.oldPersonName;
+
         if (isHealthy === 1) {
           values.careWorkerCases = '';
         }
@@ -100,6 +105,26 @@ export default function CareworkerAddEdit({
           rules={[{ message: '护工费用必填', required: true }]}
         />
       </ProForm.Group>
+      <ProFormSelect.SearchSelect
+        mode='single'
+        width='md'
+        name="oldPersonName"
+        label="照顾老人的姓名"
+        placeholder="请搜索选择姓名"
+        debounceTime={300}
+        request={async ({ keyWords }) => {
+          if (!keyWords) return []
+          const res = await getOldpersonByName(keyWords);
+          return res.data.map((item: any) => {
+            return {
+              value: item.id,
+              label: item.oldPersonName
+            }
+          })
+        }}
+        rules={[{ message: '姓名必选', required: true }]}
+      />
+
       <ProFormSelect
         width="md"
         name="isHealthy"

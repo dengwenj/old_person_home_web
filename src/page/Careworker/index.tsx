@@ -8,6 +8,7 @@ import { PlusOutlined } from '@ant-design/icons';
 
 import CareworkerAddEdit from './CareworkerAddEdit';
 import { pageCareworker, deletCareworker } from '../../services/careworker';
+import { getOldpersonByName } from '../../services/user';
 
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 
@@ -33,6 +34,7 @@ export default function Careworker() {
     {
       title: '护工年龄',
       dataIndex: 'careWorkerAge',
+      hideInSearch: true,
       render(text) {
         return (
           <>
@@ -44,6 +46,7 @@ export default function Careworker() {
     {
       title: '工龄(年)',
       dataIndex: 'seniority',
+      hideInSearch: true,
       render(text) {
         return (
           <>
@@ -55,6 +58,7 @@ export default function Careworker() {
     {
       title: '是否健康',
       dataIndex: 'isHealthy',
+      hideInSearch: true,
       valueEnum: {
         1: {
           text: '健康',
@@ -87,6 +91,57 @@ export default function Careworker() {
               ) : '-'
             }
           </>
+        )
+      }
+    },
+    {
+      title: '照顾老人姓名',
+      dataIndex: 'oldPersonName',
+      render(oldPersonName) {
+        return (
+          <Tag color='processing'>{oldPersonName}</Tag>
+        )
+      },
+      valueType: 'select',
+      debounceTime: 300,
+      async request({ keyWords }) {
+        if (!keyWords) return [];
+        const res = await getOldpersonByName(keyWords);
+        return res.data.map((item: any) => {
+          return {
+            value: item.id,
+            label: item.oldPersonName
+          }
+        })
+      },
+      fieldProps(form, config) {
+        return {
+          showSearch: true,
+          placeholder: '请搜索选择'
+        }
+      }
+    },
+    {
+      title: '性别',
+      dataIndex: 'gender',
+      hideInSearch: true,
+      valueEnum: {
+        1: {
+          text: '男',
+          status: 'Success'
+        },
+        0: {
+          text: '女',
+          status: 'Warning',
+        },
+      },
+    },
+    {
+      title: '年龄',
+      dataIndex: 'age',
+      render(text) {
+        return (
+          <><Tag color='cyan'>{text}</Tag></>
         )
       }
     },
