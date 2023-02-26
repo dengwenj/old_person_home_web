@@ -139,6 +139,7 @@ export default function Careworker() {
     {
       title: '年龄',
       dataIndex: 'age',
+      hideInSearch: true,
       render(text) {
         return (
           <><Tag color='cyan'>{text}</Tag></>
@@ -212,6 +213,7 @@ export default function Careworker() {
           }
         }}
         search={{
+          labelWidth: 100,
           defaultCollapsed: false
         }}
         rowKey="id"
