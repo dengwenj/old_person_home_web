@@ -18,6 +18,10 @@ export const editAdmin = (data: Record<string, any>) => {
 export const pageAdmin = (data: Record<string, any>) => {
   return apiPost('/user/page', data);
 };
+// 重置密码
+export const resetUser = () => {
+  return apiPost('/user/reset', {});
+}
 
 // 人员管理(增删改查)
 export const addOldPerson = (data: Record<string, any>) => {

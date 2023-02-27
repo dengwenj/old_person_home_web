@@ -1,11 +1,10 @@
 import { useState } from 'react';
-import { Dropdown, message, Tag } from 'antd';
+import { Alert, Dropdown, message, Modal, Popconfirm, Tag } from 'antd';
 import { PageContainer, ProLayout } from '@ant-design/pro-components';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import {
   LogoutOutlined,
 } from '@ant-design/icons';
-import { useNavigate, useLocation } from 'react-router-dom';
 import {
   UserOutlined,
   FieldTimeOutlined,
@@ -13,16 +12,20 @@ import {
   CoffeeOutlined,
   HomeOutlined,
   ApiOutlined,
-  SolutionOutlined
+  SolutionOutlined,
+  ExclamationCircleOutlined
 } from '@ant-design/icons';
 
 import logo from '../../access/imgs/logo.png';
 import cs from '../../access/imgs/cs.png';
+import { apiPost } from '../../services';
 
 export default () => {
   const location = useLocation;
   const [pathname, setPathname] = useState(location().pathname);
   const navigate = useNavigate();
+  const [isShowReset, setIsShowReset] = useState(false);
+  const [openReset, setOpenReset] = useState(false);
 
   const role = JSON.parse(localStorage.getItem('o_p_h_user_info') || '')?.role
   const obj = role === 1 ? {
@@ -167,6 +170,15 @@ export default () => {
                         message.info('登出成功');
                       }
                     },
+                    {
+                      key: 'newPassword',
+                      icon: <ExclamationCircleOutlined />,
+                      label: '重置密码',
+                      onClick() {
+                        setIsShowReset(true);
+                        setOpenReset(true);
+                      }
+                    }
                   ],
                 }}
               >
@@ -206,6 +218,24 @@ export default () => {
           <Outlet />
         </PageContainer>
       </ProLayout>
+
+      {/* 重置密码 */}
+      {
+        isShowReset && (
+          <Modal
+            title="重置密码"
+            open={openReset}
+            onCancel={() => setOpenReset(false)}
+            onOk={async () => {
+              const res = await apiPost('/user/reset', {});
+              message.success(res.msg);
+              setOpenReset(false);
+            }}
+          >
+            <Alert message="重置的密码为：000000" type="info" showIcon />
+          </Modal>
+        )
+      }
     </div>
   );
 };
