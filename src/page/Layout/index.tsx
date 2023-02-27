@@ -228,8 +228,11 @@ export default () => {
             onCancel={() => setOpenReset(false)}
             onOk={async () => {
               const res = await apiPost('/user/reset', {});
-              message.success(res.msg);
               setOpenReset(false);
+              navigate('/user/login');
+              localStorage.removeItem('old_person_home_token');
+              localStorage.removeItem('o_p_h_user_info');
+              message.success(res.msg + '请重新登录');
             }}
           >
             <Alert message="重置的密码为：000000" type="info" showIcon />
