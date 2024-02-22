@@ -104,10 +104,10 @@ export default function Home() {
         <Descriptions.Item label="加入系统">
           今天是您加入系统的第<Tag style={{ margin: '0 2px' }} color='cyan'>{joinInDay}</Tag>天
         </Descriptions.Item>
-        <Descriptions.Item label="座右铭">「海阔凭鱼跃，天高任鸟飞」</Descriptions.Item>
+        <Descriptions.Item label="座右铭">「此心光明，亦复何言」</Descriptions.Item>
         <Descriptions.Item label="爱好">
           {
-            ['阅读📚', '滑雪🏂🏻', '摄影📷'].map((item) => {
+            ['阅读📚', '书法📚', '股票', '基金'].map((item) => {
               return (
                 <span key={item}>
                   <Tag color='blue'>{item}</Tag>
