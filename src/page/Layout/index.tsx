@@ -50,7 +50,7 @@ export default () => {
         headerContentRender={() => {
           return (
             <div style={{ marginLeft: 20 }}>
-              <span style={{ color: '#575757' }}>「作者: <a href="https://dengwj.vip" target='_blank'>朴睦</a>」</span>
+              <span style={{ color: '#575757' }}>「系统作者: <a href="https://dengwj.vip" target='_blank'>朴睦</a>」</span>
             </div>
           )
         }}
