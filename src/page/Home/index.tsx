@@ -117,7 +117,7 @@ export default function Home() {
           }
         </Descriptions.Item>
         <Descriptions.Item label="住址">
-          中国 🇨🇳 重庆市合阳大道
+          中国 🇨🇳 上海市浦东新区
         </Descriptions.Item>
       </Descriptions>
       <Divider orientation="left" ><span style={{ fontSize: 18 }}>如下分析</span></Divider>
